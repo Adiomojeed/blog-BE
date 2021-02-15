@@ -39,4 +39,16 @@ const loginUser = async (data) => {
   }
 };
 
-module.exports = { createUser, loginUser };
+const me = async (data) => {
+  try {
+    const user = await User.findById(data._id);
+    return {
+      data: _.pick(user, ["_id", "name", "email", "isAdmin"]),
+      error: null,
+    };
+  } catch (err) {
+    return { data: null, error: error.message };
+  }
+};
+
+module.exports = { createUser, loginUser, me };

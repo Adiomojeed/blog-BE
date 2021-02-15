@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const userSeeder = require("../database/seeders/userSeeder");
 const userValidation = require("../validations/user.validation");
 const validation = require("../middlewares/validate");
 const userController = require("../controllers/user.controller");
+const auth = require("../middlewares/auth");
 
 router.post(
   "/register",
@@ -16,5 +16,7 @@ router.post(
   validation(userValidation.loginUser),
   userController.loginUser
 );
+
+router.get("/me", auth, userController.me);
 
 module.exports = router;

@@ -29,4 +29,10 @@ const loginUser = async (req, res) => {
     );
 };
 
-module.exports = { createUser, loginUser };
+const me = async (req, res) => {
+  const user = await userService.me(req.user);
+  if (user.error) responseHandler(res, user.error, 400);
+  else responseHandler(res, "Success", 200, user.data, true);
+};
+
+module.exports = { createUser, loginUser, me };
