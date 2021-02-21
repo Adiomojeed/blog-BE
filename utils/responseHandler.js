@@ -10,7 +10,6 @@ module.exports = (
     return res
       .header("x-auth-token", header)
       .status(statusCode)
-      .send({ success, statusCode, message, data });
-  else
-    return res.status(statusCode).send({ success, statusCode, message, data });
+      .send({ success, message, data });
+  else return res.status(statusCode).send({ success, message, data });
 };

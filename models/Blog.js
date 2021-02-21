@@ -1,15 +1,24 @@
 const mongoose = require("mongoose");
 
-const threadSchema = new mongoose.Schema({
+const blogSchema = new mongoose.Schema({
   title: {
     type: String,
-    maxlength: 250,
     trim: true,
     required: true,
+    maxLength: 250,
   },
   description: {
     type: String,
     trim: true,
+    required: true,
+  },
+  category: {
+    type: String,
+    enum: ["sport", "entertainment", "tech"],
+    required: true,
+  },
+  thumbnail: {
+    type: String,
     required: true,
   },
   author: {
@@ -23,4 +32,4 @@ const threadSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Thread", threadSchema);
+module.exports = mongoose.model("Blog", blogSchema);

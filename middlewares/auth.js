@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
+const Blog = require("../models/Blog");
 
-module.exports = (req, res, next) => {
+const auth = (req, res, next) => {
   const token = req.header("x-auth-token");
   if (!token) return res.status(401).send("Unauthorized user");
   try {
@@ -11,3 +12,16 @@ module.exports = (req, res, next) => {
     return res.status(403).send("Invalid token");
   }
 };
+
+const isBlog = async (req, res, next) => {
+  try {
+    const blog = await Blog.findById(req.params.blogId);
+    if (blog.author == req.user._id) {
+      next();
+    } else return res.status(403).send("Blog doesn't belong to you");
+  } catch (error) {
+    return res.status(403).send("Blog doesn't belong to you");
+  }
+};
+
+module.exports = { auth, isBlog };

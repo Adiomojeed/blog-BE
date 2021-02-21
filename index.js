@@ -7,12 +7,12 @@ const responseHandler = require("./utils/responseHandler");
 const app = express();
 
 const users = require("./routes/users.route");
-const threads = require("./routes/threads.route");
+const blogs = require("./routes/blogs.route");
 
 // Routes middlewares
 app.use(express.json());
 app.use("/api/auth", users);
-app.use("/api/threads", threads);
+app.use("/api/blog", blogs)
 
 app.use(function (err, req, res, next) {
   console.error(err)
