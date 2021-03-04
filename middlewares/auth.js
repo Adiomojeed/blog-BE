@@ -16,7 +16,10 @@ const auth = (req, res, next) => {
 const isBlog = async (req, res, next) => {
   try {
     const blog = await Blog.findById(req.params.blogId);
-    if (blog.author == req.user._id) {
+    if (!blog) {
+      return res.status(400).send("Blog doesn't exist");
+    }
+    if (blog && blog.author == req.user._id) {
       next();
     } else return res.status(403).send("Blog doesn't belong to you");
   } catch (error) {

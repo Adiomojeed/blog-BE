@@ -15,11 +15,17 @@ const createBlog = {
 
 const updateBlog = {
   body: {
-    title: Joi.string().trim().max(250),
-    description: Joi.string().trim(),
-    category: Joi.string().trim(),
-    thumbnail: Joi.string().trim(),
+    title: Joi.string().trim().max(250).required(),
+    description: Joi.string().trim().required(),
+    category: Joi.string().trim().required(),
+    thumbnail: Joi.string().trim().required(),
   },
+  params: {
+    blogId: Joi.string().trim().required().custom(objectId),
+  },
+};
+
+const singleBlog = {
   params: {
     blogId: Joi.string().trim().required().custom(objectId),
   },
@@ -31,4 +37,24 @@ const searchBlog = {
   },
 };
 
-module.exports = { createBlog, searchBlog, updateBlog };
+const blogComment = {
+  body: {
+    blog: Joi.string().trim().required().custom(objectId),
+    comment: Joi.string().trim().required(),
+  },
+};
+
+const blogLike = {
+  body: {
+    blog: Joi.string().trim().required().custom(objectId),
+  },
+};
+
+module.exports = {
+  createBlog,
+  searchBlog,
+  updateBlog,
+  singleBlog,
+  blogComment,
+  blogLike,
+};

@@ -12,12 +12,12 @@ const blogs = require("./routes/blogs.route");
 // Routes middlewares
 app.use(express.json());
 app.use("/api/auth", users);
-app.use("/api/blog", blogs)
+app.use("/api/blog", blogs);
 
 app.use(function (err, req, res, next) {
-  console.error(err)
-  res.status(500).send('Something broke!')
-})
+  console.error(err);
+  res.status(500).send("Something broke!");
+});
 
 // Handles 404 routes
 app.use(function (req, res, next) {
